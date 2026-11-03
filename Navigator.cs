@@ -52,5 +52,14 @@ public class Navigator
         route.AppendLine("Финиш: " + to.FullName + ", " + to.Location);
         return route.ToString();
     }
+    public virtual Room FindRoomByName(string name)
+    {
+        foreach (Room room in Rooms)
+        {
+            if (room.Name.ToLower().Contains(name.ToLower()))
+                return room;
+        }
+        return null;
+    }
 }
 
