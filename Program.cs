@@ -3,67 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Room
+public class Program
 {
-    private string _number = "";
-    public virtual string Number
+    public static void Main(string[] args)
     {
-        get { return _number; }
-        set { _number = value; }
-    }
+        // создаем навигатор и несколько помещений вуза
+        Navigator navigator = new Navigator();
+        navigator.AddRoom(new Room("1101", "Лекционная аудитория", 1, "1"));
+        navigator.AddRoom(new Room("3205", "Компьютерный класс", 3, "1"));
+        navigator.AddRoom(new Room("2310", "Лаборатория", 2, "2"));
 
-    private string _name = "";
-    public virtual string Name
-    {
-        get { return _name; }
-        set { _name = value; }
-    }
+        Room start = navigator.FindRoom("1101");
+        Room finish1 = navigator.FindRoom("3205");
+        Room finish2 = navigator.FindRoom("2310");
 
-    private int _floor = 1;
-    public virtual int Floor
-    {
-        get { return _floor; }
-        set { _floor = value; }
-    }
+        System.Console.WriteLine(start.FullName);
+        System.Console.WriteLine(start.Location);
+        System.Console.WriteLine(finish1.FullName);
+        System.Console.WriteLine(finish1.Location);
+        System.Console.WriteLine(Room.ClassDescription);
 
-    private string _building = "";
-    public virtual string Building
-    {
-        get { return _building; }
-        set { _building = value; }
-    }
+        System.Console.WriteLine();
+        System.Console.WriteLine(navigator.BuildRoute(start, finish1));
+        System.Console.WriteLine(navigator.BuildRoute(start, finish2));
 
-    public virtual string FullName
-    {
-        get
-        {
-            string fullName = "Ауд. " + Number + " (" + Name + ")";
-            return fullName;
-        }
-    }
-
-    public virtual string Location
-    {
-        get
-        {
-            string location = "Корпус " + Building + ", " + Floor + " этаж";
-            return location;
-        }
-    }
-
-    public static string ClassDescription
-    {
-        get
-        {
-            return "Класс Room. Хранит данные о помещении вуза.";
-        }
-    }
-
-    public Room(string number, string name, int floor, string building)
-    {
-        Number = number;
-        Name = name;
-        Floor = floor;
-        Building = building;
+        System.Console.ReadKey();
     }
 }
